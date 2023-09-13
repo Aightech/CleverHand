@@ -1,0 +1,12 @@
+[submodule "hardware/CleverHand-hardware"]
+	path = hardware/CleverHand-hardware
+	url = git@github.com:Aightech/CleverHand-hardware
+	branch = main
+[submodule "software/CleverHand-interface"]
+	path = software/CleverHand-interface
+	url = git@github.com:Aightech/CleverHand-interface
+	branch = main
+[submodule "tools/Cleverhand-configGUI"]
+	path = tools/Cleverhand-configGUI
+	url = git@github.com:Aightech/Cleverhand-configGUI
+	branch = main
