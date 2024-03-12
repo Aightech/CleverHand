@@ -1,7 +1,10 @@
 # CleverHand
 CleverHand is a wearable electromyography (EMG) system designed for high-quality muscle activity measurement in research and clinical settings. 
 
-![CleverHand](https://github.com/Aightech/CleverHand-hardware/blob/main/docs/anim.gif)
+# CleverHand
+Module        |  Bracelet factor
+:-------------------------:|:-------------------------:
+![CleverHand](https://github.com/Aightech/CleverHand-hardware/blob/main/docs/anim.gif) |  ![chain](https://github.com/Aightech/CleverHand-hardware/blob/main/docs/bracelet_one.png)
 
 ## Features
 - **Modular Architecture**
