@@ -10,3 +10,7 @@
 	path = tools/Cleverhand-configGUI
 	url = git@github.com:Aightech/Cleverhand-configGUI
 	branch = main
+[submodule "firmware/hc32l110_clvhd"]
+	path = firmware/hc32l110_clvhd
+	url = git@github.com:Aightech/hc32l110_clvhd
+	branch = main
