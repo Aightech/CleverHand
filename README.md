@@ -3,10 +3,16 @@ CleverHand is a wearable electromyography (EMG) system designed for high-quality
 
 ![CleverHand](https://github.com/Aightech/CleverHand-hardware/blob/main/docs/anim.gif)
 
+# Repository structure
+- `hardware` contains the hardware design files (KiCad)
+- `firmware` contains the firmware for the communication between the modules and the host
+- `software` contains the software for the communication between the main module and the host (GUI, LSL, python, C++)
+
+
 ## Features
 - **Modular Architecture**
     
-    Up to 16 integrable modules, each containing five surface electrodes embedded directly into the PCB.
+    Up to 32 integrable modules, each containing 5-8 surface electrodes embedded directly into the PCB.
 
 - **Adaptable Addressing System**
 
