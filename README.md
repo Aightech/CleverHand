@@ -1,5 +1,9 @@
 # CleverHand
-CleverHand is a wearable electromyography (EMG) system designed for high-quality muscle activity measurement in research and clinical settings. 
+CleverHand is an open-source, modular Human-Machine Interface (HMI) system designed for the acquisition of biosignals (EMG, ECG, EEG, etc.) and the delivery of sensory feedback (electrotactile, vibrotactile, visual, etc.). The system is intended for use in research and educational settings, as well as a platform for the development of assistive technologies, prosthetics, and exoskeletons.
+
+The project is in the early stages of development, so expect some debugging and troubleshooting before it is ready for use. 
+
+If you are interested in contributing to the project, feel free to raise issues, submit pull requests, or contact us directly.
 
 # CleverHand
 Module        |  Bracelet factor
