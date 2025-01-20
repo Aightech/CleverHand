@@ -3,7 +3,7 @@
     "configurations": [
         {
             "name": "Arduino",
-            "compilerPath": "/home/adev/.arduino15/packages/teensy/tools/teensy-compile/11.3.1/arm/bin/arm-none-eabi-g++",
+            "compilerPath": "/home/aightech/.arduino15/packages/teensy/tools/teensy-compile/11.3.1/arm/bin/arm-none-eabi-g++",
             "compilerArgs": [
                 "-Wall",
                 "-ffunction-sections",
@@ -12,24 +12,25 @@
             ],
             "intelliSenseMode": "gcc-x64",
             "includePath": [
-                "/tmp/arduino/sketches/DDCB549693E5E50246D15D65B066295D/pch",
-                "/home/adev/.arduino15/packages/teensy/hardware/avr/1.59.0/cores/teensy4",
-                "/home/adev/.arduino15/packages/teensy/hardware/avr/1.59.0/libraries/SPI",
-                "/home/adev/.arduino15/packages/teensy/tools/teensy-compile/11.3.1/arm/arm-none-eabi/include/c++/11.3.1",
-                "/home/adev/.arduino15/packages/teensy/tools/teensy-compile/11.3.1/arm/arm-none-eabi/include/c++/11.3.1/arm-none-eabi",
-                "/home/adev/.arduino15/packages/teensy/tools/teensy-compile/11.3.1/arm/arm-none-eabi/include/c++/11.3.1/backward",
-                "/home/adev/.arduino15/packages/teensy/tools/teensy-compile/11.3.1/arm/lib/gcc/arm-none-eabi/11.3.1/include",
-                "/home/adev/.arduino15/packages/teensy/tools/teensy-compile/11.3.1/arm/lib/gcc/arm-none-eabi/11.3.1/include-fixed",
-                "/home/adev/.arduino15/packages/teensy/tools/teensy-compile/11.3.1/arm/arm-none-eabi/include"
+                "/tmp/arduino/sketches/DD6134EC41DFF09C05B41688C7A19B19/pch",
+                "/home/aightech/.arduino15/packages/teensy/hardware/avr/1.58.1/cores/teensy4",
+                "/home/aightech/.arduino15/packages/teensy/hardware/avr/1.58.1/libraries/SPI",
+                "/home/aightech/.arduino15/packages/teensy/hardware/avr/1.58.1/libraries/Wire",
+                "/home/aightech/.arduino15/packages/teensy/tools/teensy-compile/11.3.1/arm/arm-none-eabi/include/c++/11.3.1",
+                "/home/aightech/.arduino15/packages/teensy/tools/teensy-compile/11.3.1/arm/arm-none-eabi/include/c++/11.3.1/arm-none-eabi",
+                "/home/aightech/.arduino15/packages/teensy/tools/teensy-compile/11.3.1/arm/arm-none-eabi/include/c++/11.3.1/backward",
+                "/home/aightech/.arduino15/packages/teensy/tools/teensy-compile/11.3.1/arm/lib/gcc/arm-none-eabi/11.3.1/include",
+                "/home/aightech/.arduino15/packages/teensy/tools/teensy-compile/11.3.1/arm/lib/gcc/arm-none-eabi/11.3.1/include-fixed",
+                "/home/aightech/.arduino15/packages/teensy/tools/teensy-compile/11.3.1/arm/arm-none-eabi/include"
             ],
             "forcedInclude": [
-                "/tmp/arduino/sketches/DDCB549693E5E50246D15D65B066295D/pch/Arduino.h"
+                "/tmp/arduino/sketches/DD6134EC41DFF09C05B41688C7A19B19/pch/Arduino.h"
             ],
             "cStandard": "c11",
-            "cppStandard": "c++17",
+            "cppStandard": "c++14",
             "defines": [
                 "__IMXRT1062__",
-                "TEENSYDUINO=159",
+                "TEENSYDUINO=158",
                 "ARDUINO=10607",
                 "ARDUINO_TEENSY40",
                 "F_CPU=600000000",
