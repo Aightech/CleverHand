@@ -1,16 +1,20 @@
 [submodule "hardware/CleverHand-hardware"]
 	path = hardware/CleverHand-hardware
-	url = git@github.com:Aightech/CleverHand-hardware
+	url = ../CleverHand-hardware
 	branch = main
 [submodule "software/CleverHand-interface"]
 	path = software/CleverHand-interface
-	url = git@github.com:Aightech/CleverHand-interface
+	url = ../CleverHand-interface
 	branch = main
 [submodule "tools/Cleverhand-configGUI"]
 	path = tools/Cleverhand-configGUI
-	url = git@github.com:Aightech/Cleverhand-configGUI
+	url = ../Cleverhand-configGUI
 	branch = main
 [submodule "firmware/hc32l110_clvhd"]
 	path = firmware/hc32l110_clvhd
-	url = git@github.com:Aightech/hc32l110_clvhd
+	url = ../hc32l110_clvhd
+	branch = main
+[submodule "tools/clvhd_lslplotter"]
+	path = tools/clvhd_lslplotter
+	url = ../clvhd_lslplotter
 	branch = main

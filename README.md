@@ -6,14 +6,14 @@ The project is in the early stages of development, so expect some debugging and 
 If you are interested in contributing to the project, feel free to raise issues, submit pull requests, or contact us directly.
 
 # CleverHand
-Module        |  Bracelet factor
-:-------------------------:|:-------------------------:
-![CleverHand](https://github.com/Aightech/CleverHand-hardware/blob/main/docs/anim.gif) |  ![chain](https://github.com/Aightech/CleverHand-hardware/blob/main/docs/bracelet_one.png)
+|                                         Module                                         |                                      Bracelet factor                                      |
+| :------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------: |
+| ![CleverHand](https://github.com/Aightech/CleverHand-hardware/blob/main/docs/anim.gif) | ![chain](https://github.com/Aightech/CleverHand-hardware/blob/main/docs/bracelet_one.png) |
 
 # Repository structure
-- `hardware` contains the hardware design files (KiCad)
-- `firmware` contains the firmware for the communication between the modules and the host
-- `software` contains the software for the communication between the main module and the host (GUI, LSL, python, C++)
+- [`hardware`](hardware/Cleverhand-hardware/README.md) contains the hardware design files (KiCad)
+- [`firmware`](firmware/hc32l110_clvhd/README.md)  contains the firmware for the communication between the modules and the host
+-  [`software`](software/Cleverhand-interface/README.md)  contains the software for the communication between the main module and the host (GUI, LSL, python, C++)
 
 
 ## Features
