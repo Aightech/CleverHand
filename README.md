@@ -14,6 +14,9 @@ If you are interested in contributing to the project, feel free to raise issues,
 - [`hardware`](hardware/Cleverhand-hardware/README.md) contains the hardware design files (KiCad)
 - [`firmware`](firmware/hc32l110_clvhd/README.md)  contains the firmware for the communication between the modules and the host
 -  [`software`](software/Cleverhand-interface/README.md)  contains the software for the communication between the main module and the host (GUI, LSL, python, C++)
+-  `tools` contains the tools for the configuration of the CleverHand device or plotting the data:
+   -  [`Cleverhand-configGUI`](tools/Cleverhand-configGUI/README.md) is a simple GUI to configure the CleverHand device and stream EMG samples.
+   -  [`clvhd_lslplotter`](tools/clvhd_lslplotter/README.md) is a simple GUI to plot the data streamed from the CleverHand device using LSL.
 
 
 ## Features
