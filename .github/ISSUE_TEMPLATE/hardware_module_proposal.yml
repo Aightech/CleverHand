@@ -1,0 +1,35 @@
+name: Hardware module proposal
+description: Propose a new CleverHand hardware module
+title: "[Module Proposal] "
+labels: ["hardware", "proposal"]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: What is this module and why is it useful?
+    validations:
+      required: true
+
+  - type: textarea
+    id: use_cases
+    attributes:
+      label: Intended use cases
+      description: Research or application contexts
+
+  - type: input
+    id: category
+    attributes:
+      label: Category
+      placeholder: HMI / CTRL / ACC / ...
+
+  - type: textarea
+    id: differentiation
+    attributes:
+      label: Differentiation
+      description: How does this differ from existing modules?
+
+  - type: textarea
+    id: risks
+    attributes:
+      label: Risks / limitations

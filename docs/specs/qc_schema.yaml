@@ -1,0 +1,122 @@
+# CleverHand QC schema
+# Defines QC levels and required metric categories. Individual modules define their QC profiles in qc/*.yaml
+
+version: 1
+
+qc_levels:
+  NONE:
+    description: "No QC requirements."
+    required_metric_groups: []
+
+  BASIC:
+    description: "Minimum checks for functional validation; not sufficient for selling."
+    required_metric_groups:
+      - POWER
+      - DIGITAL
+      - IDENTITY
+
+  FULL:
+    description: "Research-grade QC required for REFERENCE modules and shop eligibility."
+    required_metric_groups:
+      - POWER
+      - DIGITAL
+      - IDENTITY
+      - SIGNAL
+      - TIMING
+      - STABILITY
+
+metric_groups:
+  POWER:
+    intent: "Ensure safe and expected power behaviour."
+    required_metrics:
+      - name: "Vrail_accuracy"
+        unit: "V"
+        description: "Measured rails within tolerance under nominal load."
+      - name: "Iidle"
+        unit: "mA"
+        description: "Idle current draw within expected bound."
+      - name: "Iactive"
+        unit: "mA"
+        description: "Active current draw within expected bound."
+
+  DIGITAL:
+    intent: "Ensure communication and enumeration are reliable."
+    required_metrics:
+      - name: "enumeration_ok"
+        unit: "bool"
+        description: "Device enumerates / is detected."
+      - name: "comms_error_rate"
+        unit: "%"
+        description: "Packet/transaction error rate under stress test."
+
+  IDENTITY:
+    intent: "Ensure traceability for reproducibility."
+    required_metrics:
+      - name: "sku"
+        unit: "string"
+        description: "SKU recorded in report."
+      - name: "hw_revision"
+        unit: "string"
+        description: "Hardware revision (R#) recorded."
+      - name: "fw_version_hash"
+        unit: "string"
+        description: "Firmware version hash recorded."
+      - name: "test_timestamp"
+        unit: "iso8601"
+        description: "Test time recorded."
+
+  SIGNAL:
+    intent: "Measure signal-path performance (module-specific content)."
+    required_metrics:
+      - name: "noise_floor"
+        unit: "uVrms"
+        description: "Input-referred noise under defined condition (e.g., shorted input)."
+      - name: "bandwidth_3db"
+        unit: "Hz"
+        description: "Signal bandwidth (-3 dB) under defined configuration."
+      - name: "gain_accuracy"
+        unit: "%"
+        description: "Gain error relative to expected transfer function."
+
+  TIMING:
+    intent: "Ensure timing/latency behaviour supports closed-loop experiments."
+    required_metrics:
+      - name: "sample_rate_accuracy"
+        unit: "%"
+        description: "Measured sampling rate error."
+      - name: "end_to_end_latency"
+        unit: "ms"
+        description: "Module-to-host latency (definition must be stated)."
+      - name: "jitter"
+        unit: "ms"
+        description: "Timing jitter over a defined window."
+
+  STABILITY:
+    intent: "Measure drift, thermal stability, and long-run behaviour."
+    required_metrics:
+      - name: "baseline_drift"
+        unit: "uV_per_min"
+        description: "Baseline drift under defined condition."
+      - name: "thermal_delta"
+        unit: "C"
+        description: "Temperature rise from idle to active."
+      - name: "long_run_dropouts"
+        unit: "count"
+        description: "Number of dropouts/disconnects over a defined duration."
+
+qc_profile_requirements:
+  # What each per-module qc/*.yaml must include
+  required_fields:
+    - "sku"
+    - "level"              # BASIC or FULL
+    - "test_setup"         # instruments, wiring, fixtures
+    - "procedure"          # step-by-step
+    - "thresholds"         # pass/fail criteria per metric
+    - "outputs"            # report artifacts (json/pdf), plots optional
+
+reports:
+  required_artifacts:
+    - name: "report_json"
+      description: "Machine-readable QC report per unit."
+    - name: "report_pdf"
+      description: "Human-readable QC summary per unit (optional for BASIC, required for FULL)."

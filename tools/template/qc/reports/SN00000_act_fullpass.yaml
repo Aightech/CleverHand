@@ -1,0 +1,53 @@
+schema_version: 1
+
+identity:
+  sku: CH-HMI-SUBM-FES_AO4882
+  module_id: FES_AO4882
+  hw_revision: R1
+  serial: SN00009
+
+qc:
+  STATUS: FULL
+  PASS: true
+  profile: qc/QCprofile.yaml
+  timestamp: 2026-01-04T21:05:00Z
+  operator: aightech
+
+results:
+  POWER_RAILS:
+    pass: true
+    metrics:
+      rails_measured_v: { VBAT: 4.05, 3V3: 3.31 }
+      rails_within_tol: true
+
+  BUS_ENUMERATION:
+    pass: true
+    metrics:
+      enumerate_ok: true
+      enumerate_time_ms: 210
+
+  ACTUATOR_OUTPUT_RANGE:
+    pass: true
+    metrics:
+      vpp: 9.6
+      current_peak_mA: 210
+      current_limit_triggered: false
+
+  ACTUATOR_WAVEFORM_FIDELITY:
+    pass: true
+    metrics:
+      thd_pct: 6.8
+      rise_time_ms: 2.4
+
+  LONG_RUN_STABILITY:
+    pass: true
+    metrics:
+      duration_min: 30
+      dropouts: 0
+      thermal_rise_c: 11.2
+
+  VISUAL_INSPECTION:
+    pass: true
+    metrics:
+      pass: true
+      notes: "OK"

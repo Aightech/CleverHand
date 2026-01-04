@@ -1,0 +1,125 @@
+Tools:
+  Bridges:
+    BUS_CONN:
+      status: DEVELOPMENT
+      sku: CH-TOOL-BRDG-BUS_CONN
+      path: CleverHand-hardware/pcb/tool/bridge
+      description: This module let you connect to a cleverhand bus to access each
+        track individually.
+  Extensions:
+    DRY_FLEX:
+      status: DEVELOPMENT
+      sku: CH-TOOL-EXTN-DRY_FLEX
+      path: CleverHand-hardware/pcb/tool/extension
+      description: This module extends the electrodes module. It a flexible PCB that
+        connects the electrodes module and offers a flexible interface to the user.
+    JACK_CONN:
+      status: DEVELOPMENT
+      sku: CH-TOOL-EXTN-JACK_CONN
+      path: CleverHand-hardware/pcb/tool/extension
+      description: This extension board let you connect a hmi module (with a 4x4 dry
+        interface) to jack connector.
+Controllers:
+  Shields:
+    S_PICO:
+      status: DEVELOPMENT
+      sku: CH-CTRL-SHLD-S_PICO
+      path: CleverHand-hardware/pcb/controller/shield
+      description: This shield is made to connect a pico board from seeed studio to
+        the CleverHand bus and control the hmi modules.
+    S_XIAO:
+      status: DEVELOPMENT
+      sku: CH-CTRL-SHLD-S_XIAO
+      path: CleverHand-hardware/pcb/controller/shield
+      description: This shield is made to connect a XIAO board from seeed studio to
+        the CleverHand bus and control the hmi modules.
+    S_TEENSY4:
+      status: DEVELOPMENT
+      sku: CH-CTRL-SHLD-S_TEENSY4
+      path: CleverHand-hardware/pcb/controller/shield
+      description: This shield is made to connect a teensy 4 board to the CleverHand
+        bus and control the hmi modules.
+Human-Machine Interfaces:
+  Communication:
+    MONO_CTRL:
+      status: DEVELOPMENT
+      sku: CH-HMI-COM-MONO_CTRL
+      path: CleverHand-hardware/pcb/hmi/communication
+      description: This module is a standalone controller node that can be used to
+        control a single submodule. It enanble standalone hmi module without the need
+        for a cleverhand bus.
+    COM_MOD:
+      status: DEVELOPMENT
+      sku: CH-HMI-COM-COM_MOD
+      path: CleverHand-hardware/pcb/hmi/communication
+      description: This module is responsible for handling the communication between
+        the different modules of the controller node.
+  Submodules:
+    IMU_ICM2094:
+      status: DEVELOPMENT
+      sku: CH-HMI-SUBM-IMU_ICM2094
+      path: CleverHand-hardware/pcb/hmi/submodule/sensor
+      description: This module is an Inertial Measurement Unit (IMU) that embeds the
+        ICM2094 sensor. It is responsible for acquiring the acceleration, angular
+        velocity and magnetic field signals.
+    EMG_DAQ_ADS1293:
+      status: DEVELOPMENT
+      sku: CH-HMI-SUBM-EMG_DAQ_ADS1293
+      path: CleverHand-hardware/pcb/hmi/submodule/sensor
+      description: This module is a data acquisition module that embeds the ADS1293
+        analog front-end. It is responsible for acquiring the EMG signals from the
+        electrodes.
+    EMG_DAQ_ADS1298:
+      status: DEVELOPMENT
+      sku: CH-HMI-SUBM-EMG_DAQ_ADS1298
+      path: CleverHand-hardware/pcb/hmi/submodule/sensor
+      description: This module is a data acquisition module that embeds the ADS1298
+        analog front-end. It is responsible for acquiring the EMG signals from the
+        electrodes.
+    EMG_INA331:
+      status: DEVELOPMENT
+      sku: CH-HMI-SUBM-EMG_INA331
+      path: CleverHand-hardware/pcb/hmi/submodule/sensor
+      description: This module is a data acquisition module that embeds the INA331
+        and a LIS3DH accelerometer. The INA331 is responsible for acquiring the EMG
+        signals from the electrodes while the LIS3DH is responsible for acquiring
+        the accelerometer signals and converting the EMG signals to digital signals.
+    VIB_STSPIN240:
+      status: DEVELOPMENT
+      sku: CH-HMI-SUBM-VIB_STSPIN240
+      path: CleverHand-hardware/pcb/hmi/submodule/feedback
+      description: This module is a vibrotactile module that embeds the STSPIN240
+        motor driver. It is responsible for generating the vibrotactile signals that
+        will be sent to the vibrotactile actuators.
+    FES_AO4882:
+      status: DEVELOPMENT
+      sku: CH-HMI-SUBM-FES_AO4882
+      path: CleverHand-hardware/pcb/hmi/submodule/feedback
+      description: This module is a electrical stimulation module that embeds 2 AO4882
+        MOSFETs. It is responsible for generating the electrical stimulation signals
+        that will be sent to the electrodes.
+  Interfaces:
+    DRY_ELEC_6CH_THIN:
+      status: DEVELOPMENT
+      sku: CH-HMI-INTF-DRY_ELEC_6CH_THIN
+      path: CleverHand-hardware/pcb/hmi/interface
+      description: This module is responsible for interfacing the sensors/actuators
+        inputs/outputs with the user skin or with other modules.
+    DRY_ELEC_6CH_MID:
+      status: DEVELOPMENT
+      sku: CH-HMI-INTF-DRY_ELEC_6CH_MID
+      path: CleverHand-hardware/pcb/hmi/interface
+      description: This module is responsible for interfacing the sensors/actuators
+        inputs/outputs with the user skin or with other modules.
+    DRY_ELEC_6CH:
+      status: DEVELOPMENT
+      sku: CH-HMI-INTF-DRY_ELEC_6CH
+      path: CleverHand-hardware/pcb/hmi/interface
+      description: This module is responsible for interfacing the sensors/actuators
+        inputs/outputs with the user skin or with other modules.
+    DRY_ELEC_16CH:
+      status: DEVELOPMENT
+      sku: CH-HMI-INTF-DRY_ELEC_16CH
+      path: CleverHand-hardware/pcb/hmi/interface
+      description: This module is responsible for interfacing the sensors/actuators
+        inputs/outputs with the user skin or with other modules.

@@ -1,0 +1,72 @@
+schema_version: 1
+
+identity:
+  sku: CH-HMI-SUBM-EMG_DAQ_ADS1293
+  module_id: EMG_DAQ_ADS1293
+  hw_revision: R2
+  serial: SN00102
+
+qc:
+  STATUS: FULL
+  PASS: true
+  profile: qc/QCprofile.yaml
+  timestamp: 2026-01-04T20:12:00Z
+  operator: aightech
+  notes: "Inputs shorted with jig; shielded box."
+
+firmware:
+  version: v1.4.0
+  git_commit: 3b1e8af
+
+results:
+  POWER_RAILS:
+    pass: true
+    metrics:
+      rails_measured_v: { VBAT: 3.88, 3V3: 3.30 }
+      rails_within_tol: true
+
+  BUS_ENUMERATION:
+    pass: true
+    metrics:
+      enumerate_ok: true
+      enumerate_time_ms: 240
+
+  BUS_LOOPBACK_STRESS:
+    pass: true
+    metrics:
+      packets_sent: 200000
+      packets_ok: 199960
+      error_rate_pct: 0.02
+      disconnects: 0
+
+  SENSOR_NOISE_FLOOR:
+    pass: true
+    metrics:
+      noise_uVrms: 1.95
+      bandwidth_hz_3db: 520
+
+  SENSOR_GAIN_ACCURACY:
+    pass: true
+    metrics:
+      gain_error_pct: 2.7
+      offset_uV: 120
+
+  SENSOR_SAMPLERATE_ACCURACY:
+    pass: true
+    metrics:
+      fs_nominal_hz: 4000
+      fs_measured_hz: 3996.2
+      fs_error_pct: -0.095
+
+  LONG_RUN_STABILITY:
+    pass: true
+    metrics:
+      duration_min: 30
+      dropouts: 0
+      thermal_rise_c: 8.4
+
+  VISUAL_INSPECTION:
+    pass: true
+    metrics:
+      pass: true
+      notes: "OK"

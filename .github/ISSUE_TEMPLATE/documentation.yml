@@ -1,0 +1,18 @@
+name: Documentation improvement
+description: Suggest or report documentation issues
+title: "[Docs] "
+labels: ["documentation"]
+body:
+  - type: textarea
+    id: issue
+    attributes:
+      label: Description
+      description: What is unclear, missing, or incorrect?
+    validations:
+      required: true
+
+  - type: input
+    id: location
+    attributes:
+      label: Location
+      placeholder: docs/modules/CH-...

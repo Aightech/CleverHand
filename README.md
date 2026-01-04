@@ -1,109 +1,188 @@
 # CleverHand
-CleverHand is an open-source, modular Human-Machine Interface (HMI) system designed for the acquisition of biosignals (EMG, ECG, EEG, etc.) and the delivery of sensory feedback (electrotactile, vibrotactile, visual, etc.). The system is intended for use in research and educational settings, as well as a platform for the development of assistive technologies, prosthetics, and exoskeletons.
 
-The project is in the early stages of development, so expect some debugging and troubleshooting before it is ready for use. 
+**CleverHand** is an **open-source, modular hardware–software platform for Human–Machine Interfaces (HMI)**, designed to support high-quality biosignal acquisition and multimodal sensory feedback in **research, education, and advanced prototyping**.
 
-If you are interested in contributing to the project, feel free to raise issues, submit pull requests, or contact us directly.
+The platform enables the acquisition of physiological signals (EMG, ECG, EEG, IMU, etc.) and the delivery of feedback (electrotactile, vibrotactile, visual), with a strong emphasis on **modularity, reproducibility, and data quality**.
 
-# CleverHand
-|                                         Module                                         |                                      Bracelet factor                                      |
-| :------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------: |
-| ![CleverHand](https://github.com/Aightech/CleverHand-hardware/blob/main/docs/anim.gif) | ![chain](https://github.com/Aightech/CleverHand-hardware/blob/main/docs/bracelet_one.png) |
+CleverHand is not a closed product.
+It is an **open infrastructure** intended to be:
 
-# Repository structure
-- [`hardware`](hardware/Cleverhand-hardware/README.md) contains the hardware design files (KiCad)
-- [`firmware`](firmware/hc32l110_clvhd/README.md)  contains the firmware for the communication between the modules and the host
--  [`software`](software/Cleverhand-interface/README.md)  contains the software for the communication between the main module and the host (GUI, LSL, python, C++)
--  `tools` contains the tools for the configuration of the CleverHand device or plotting the data:
-   -  [`Cleverhand-configGUI`](tools/Cleverhand-configGUI/README.md) is a simple GUI to configure the CleverHand device and stream EMG samples.
-   -  [`clvhd_lslplotter`](tools/clvhd_lslplotter/README.md) is a simple GUI to plot the data streamed from the CleverHand device using LSL.
+* built and modified by researchers,
+* integrated into experimental systems,
+* and reused across multiple projects without redesigning the stack each time.
 
+---
 
-## Features
-- **Modular Architecture**
-    
-    Up to 32 integrable modules, each containing 5-8 surface electrodes embedded directly into the PCB.
+## Diagram
 
-- **Adaptable Addressing System**
+![CleverHand system diagram](docs/img/diagram.drawio.svg)
 
-    Module addresses based on their physical position in the chain, eliminating the need for hardcoded addresses.
-
- - **High-Quality Signal Acquisition**
-    Samples EMG signals at a rate of 4 kHz with 24-bit resolution.
-
--  **High-Density Design** 
-
-    Each module measures 20mm x 20mm and houses five 3mm x 18mm electrodes.
-
--  **Portability**
-
-    Offers both wired (Ethernet) and wireless communication options.
-
--  **User-Friendly Interface**
-        
-    Comes with an intuitive GUI for easy parameter configuration, real-time visualization, and data streaming via LSL.
+---
 
 
-## Study
-<details><summary>Details</summary>
-<p>
+## Project philosophy
 
-#### Motivation
-Electromyography (EMG) is a technique used to measure the electrical activity of muscles. It is widely used in the field of human-machine interaction, as it provides a non-invasive method of monitoring muscle activity. For example, EMG can be used to control prosthetic devices, allowing amputees to regain some of their lost functionality. EMG can also be used to control exoskeletons, allowing for the restoration of motor function in patients with neurological disorders. In addition, EMG is used in the field of sports science to monitor muscle activity during physical activity. 
+* **Open by design**
+  All hardware, firmware, and software are open-source. Users may self-manufacture modules or assemble them via standard PCBA services.
 
-#### Context
-Current devices used for EMG signal acquisition are often bulky and expensive or lack the necessary features to meet the needs of researchers and clinicians. 
+* **Research-first, not consumer-first**
+  CleverHand prioritises signal integrity, timing control, and experimental flexibility over plug-and-play simplicity.
 
-##### Wearable EMG devices
+* **Access without lock-in**
+  For users who do not want to manufacture hardware themselves, pre-assembled and tested modules may be offered as an *access layer* (shop), without restricting openness.
 
-| Device | Price | Electrodes | Sampling rate | Resolution | Comments |
-| --- | --- | --- | --- | --- | --- |
-| Myoband | 200\$ | 8 bipolar electrodes | 200 Hz | 8-bit | It was very handy and easy to use for experiments as the users just had to put it on their arm and it was ready to use. Unfortunately, the Myoband is no longer available for purchase. |
-| MyoWare EMG Sensor | 40\$ | 3 bipolar electrodes | 200 Hz | 10-bit  | The MyoWare EMG Sensor is a low-cost EMG sensor that can be used to measure muscle activity. It is a good option for prototyping, but it lacks the necessary features for research and clinical applications. |
-| Delsys Trigno Avanti | 2000\$ | 16 bipolar electrodes | 2000 Hz | 16-bit | The Delsys Trigno Avanti is a high-end EMG system that offers a wide range of features. It is a good option for research and clinical applications, but it is expensive and not very portable. |
+* **Long-term maintainability**
+  Stable interfaces, documented modules, and explicit quality-control practices are preferred over rapid feature churn.
+
+---
+
+## System overview
+
+CleverHand devices are built by chaining small, specialised modules that share:
+
+* a common electrical and communication interface,
+* a unified firmware and data model,
+* and a host-side software stack (GUI, LSL, Python, C++).
+
+---
+
+## Repository structure
+
+* [`hardware`](hardware/CleverHand-hardware/README.md)
+  Hardware design files (KiCad), manufacturing data, and module-level documentation.
+* [`software`](software/)
+  * [`driver`](software/driver)
+    Host-side api and libraries (Drivers, LSL streaming, Python/C++ APIs).
+  * [`firmware`](software/firmware/)
+    Embedded firmware for inter-module communication and host interfacing.
+  * [`tools`](software/tools/)
+  Utilities for configuration, testing, and data visualisation:
 
 
-##### Non-wearable EMG devices
+---
 
-| Device | Price | Electrodes | Sampling rate | Resolution | Comments |
-| --- | --- | --- | --- | --- | --- |
-| OT Bioelettronica Sessanta Quattro | 10000\$ | 64 monopolar electrodes | 2000 Hz | 24-bit | The Sessanta Quattro is a high-end EMG system that offers a wide range of features. It is a good option for research and clinical applications, but it is very expensive. |
-| Delsys Trigno Wireless System | ? | 32 monopolar electrodes | ? | ? | The Trigno Wireless System is a high-end EMG system that offers a wide range of features. It is a good option for research and clinical applications, but it is very expensive. |
-| OT Bioelettronica Muovi+ | 25000\$ | 4x32 monopolar electrodes | 2000 Hz | 24-bit | The Muovi+ is a high-end EMG system that offers a wide range of features. It is a good option for research and clinical applications, but it is very expensive|
-| OT Bioelettronica Quattrocento | 50000\$ | 382 monopolar electrodes | 2000 Hz | 24-bit | The Quattrocento is a high-end EMG system that offers a wide range of features. It is a good option for research and clinical applications, but it is very expensive. |
+## Key features
 
+### Modular architecture
 
-#### Approach
+* 1 to 32 modules per device
+* Sensor, feedback, communication, and interface modules can be freely combined
 
-Our system features a modular architecture, allowing for the integration of 1 to 32 modules. Standard modules house ADS1293 or ADS1298 EMG acquisitions chip, enabling the sampling of 3 to 8 channels of EMG data at a rate of 4 kHz with a 24-bit resolution. 
+### Position-based addressing
 
-To achieve a high-density design, the bottom layer of the PCB contains eight gold-plated areas (3mm x 18mm) that can serve as electrodes. This high-density design, with a module size of 20mm x 20mm, facilitates precise and detailed analysis of muscle activation patterns, especially in applications that require high spatial resolution.
+* Module addresses are inferred from physical position in the chain
+* No hardcoded IDs or manual configuration
 
-To ensure the versatility of the modules it is also posible to use the gold plated electrodes to mount adpters for other type of electrodes (jack connector, snap connector, flex electrodes).
+### High-quality biosignal acquisition
 
- The addressing system employed by the device is adaptable, with the address of each module determined by its physical position in the chain. This design eliminates the need for hardcoded addresses and simplifies the overall usage. 
+* Up to **4 kHz sampling rate**
+* **24-bit resolution** (ADS1293 / ADS1298 based modules)
+* Designed for EMG and other low-amplitude physiological signals
 
-| Module | Price | Electrodes | Sampling rate | Resolution |
-| --- | --- | --- | --- | --- | 
-| CleverHand | 200\$ | 16x8 monopolar/bipolar electrodes | 4 kHz | 24-bit |
+### High-density wearable design
 
-##### Additional features
+* Typical module size: **20 × 20 mm**
+* Integrated gold-plated electrode pads (e.g. 3 × 18 mm)
+* Supports dense spatial sampling
 
-| Feature | Description |
-| --- | --- |
-| Modular | 1 to 32 modules per device |
-| Visual | 2 RGB LEDs per module|
-| IMU | Can be equipped with an IMU module|
-| Electrotactile | Can be equipped with an electrotactile module|
-| Vibrotactile | Can be equipped with a vibrotactile actuator|
-| Communication | Wireless (Bluetooth, WiFi, LORA, ...) or wired (USB, Ethernet, ...) |
-| Attachments | Standard, bracelet, mesh|
-| Interface | GUI, LSL, python, C++ |
+### Flexible connectivity
 
- </p>
+* Wired: USB, Ethernet
+* Wireless: Bluetooth, Wi-Fi (others possible depending on controller)
+
+### Unified software interface
+
+* Configuration GUI
+* Real-time visualisation
+* LSL streaming
+* Python and C++ APIs
+
+---
+
+## Background and motivation
+
+<details>
+<summary>Details</summary>
+
+### Motivation
+
+Electromyography (EMG) provides a non-invasive way to measure muscle activation and is widely used in:
+
+* human–machine interaction,
+* prosthetics and assistive devices,
+* rehabilitation and exoskeleton control,
+* sports science and biomechanics.
+
+Despite its importance, existing EMG systems often fall into two extremes:
+
+* **low-cost, low-performance** wearable devices,
+* or **high-performance, high-cost** laboratory systems with limited portability.
+
+### Limitations of existing systems
+
+#### Wearable EMG devices
+
+| Device               | Price   | Electrodes | Sampling rate | Resolution | Notes                         |
+| -------------------- | ------- | ---------- | ------------- | ---------- | ----------------------------- |
+| Myo armband          | ~200 $  | 8 bipolar  | 200 Hz        | 8-bit      | Easy to use, discontinued     |
+| MyoWare              | ~40 $   | 3 bipolar  | 200 Hz        | 10-bit     | Suitable for prototyping only |
+| Delsys Trigno Avanti | ~2000 $ | 16 bipolar | 2000 Hz       | 16-bit     | High quality, expensive       |
+
+#### Non-wearable EMG systems
+
+| Device              | Price  | Channels | Sampling rate | Resolution |
+| ------------------- | ------ | -------- | ------------- | ---------- |
+| OT Sessanta Quattro | ~10 k$ | 64       | 2000 Hz       | 24-bit     |
+| OT Muovi+           | ~25 k$ | 4×32     | 2000 Hz       | 24-bit     |
+| OT Quattrocento     | ~50 k$ | 382      | 2000 Hz       | 24-bit     |
+
+### CleverHand approach
+
+CleverHand aims to **bridge the gap** between these categories by providing:
+
+* modular, wearable, high-density EMG acquisition,
+* research-grade signal quality,
+* and a system that scales from small experiments to complex multi-site recordings.
+
+Each EMG module integrates an ADS1293 or ADS1298 AFE, supporting **3–8 channels per module**, sampled at **4 kHz / 24-bit**. Multiple modules can be chained to increase spatial coverage.
+
+Gold-plated electrode pads on the PCB can be used directly or adapted via interface boards (flex electrodes, snap connectors, jack connectors).
+
 </details>
 
-# Diagram
-![CleverHand](docs/diagram.svg)
+---
 
+## Additional capabilities
 
+| Feature         | Description                       |
+| --------------- | --------------------------------- |
+| Visual feedback | RGB LEDs per module               |
+| IMU             | Optional inertial sensing modules |
+| Electrotactile  | Optional stimulation modules      |
+| Vibrotactile    | Optional actuator modules         |
+| Attachments     | Bracelet, mesh, custom mounts     |
+| Interfaces      | GUI, LSL, Python, C++             |
+
+---
+
+## Project status & contributions
+
+CleverHand is an **active research platform**.
+Interfaces and core architecture are stabilising, while individual modules continue to evolve.
+
+Contributions are welcome in the form of:
+
+* issues and bug reports,
+* hardware or firmware improvements,
+* documentation and experiments,
+* or external use cases and feedback.
+
+If you plan to use CleverHand in a study or project, citations and references are appreciated.
+
+---
+
+If you want next, I can:
+
+* add a **“Who should / should not use CleverHand”** section,
+* split this into a **short README + extended docs index**,
+* or rewrite it again with a **stronger academic / grant-proposal tone**.

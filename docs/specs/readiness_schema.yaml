@@ -1,0 +1,90 @@
+version: 1
+
+levels:
+  DEVELOPMENT:
+    description: "Module under development, not yet ready for external use."
+    shop_eligible: false
+    qc_required: "NONE"
+    minimum_requirements:
+      - "README"
+      - "SCHEMATIC"
+      - "PCB"
+    expectations:
+      - "May not work"
+
+  PROTOTYPE:
+    description: "Early experimental module; internal use; interfaces may change."
+    shop_eligible: false
+    qc_required: "NONE"
+    minimum_requirements:
+      - "README"
+      - "SCHEMATIC"
+      - "PCB"
+      - "FABRICABLE"
+    expectations:
+      - "May be unstable."
+      - "May lack documentation."
+      - "Not recommended for external users."
+
+  ALPHA:
+    description: "Functional module with basic documentation; still unstable."
+    shop_eligible: false
+    qc_required: "BASIC"
+    minimum_requirements:
+      - "README"
+      - "SCHEMATIC"
+      - "PCB"
+      - "FABRICABLE"
+      - "QC_BASIC_DONE"
+    expectations:
+      - "Should work but may still be unstable."
+      - "Some parameters not final."
+      - "Known limitations documented."
+
+  REFERENCE:
+    description: "Research-grade reference implementation; externally usable; reproducible builds."
+    shop_eligible: true
+    qc_required: "FULL"
+    minimum_requirements:
+      - "README"
+      - "SCHEMATIC"
+      - "PCB"
+      - "FABRICABLE"
+      - "QC_FULL_DONE"
+    expectations:
+      - "Performance claims are measured or explicitly bounded."
+      - "External onboarding path exists (quickstart + expected outputs)."
+
+  DEPRECATED:
+    description: "Kept for compatibility or historical reference; not recommended for new use."
+    shop_eligible: false
+    qc_required: "NONE"
+    minimum_requirements:
+      - "README"
+      - "SCHEMATIC"
+      - "PCB"
+      - "FABRICABLE"
+      - "QC_FULL_DONE"
+      - "DEPRECATED"
+    expectations:
+      - "No further improvements expected."
+
+policy:
+  # Normative rules
+  - id: only_reference_is_sellable
+    text: "Only REFERENCE-level modules may be sold or recommended as stable to external users."
+  - id: qc_gates_readiness
+    text: "A module cannot be promoted to REFERENCE without a FULL QC profile and passing results."
+  - id: readiness_declared_in_catalog
+    text: "Each module entry in the catalog must declare a readiness level."
+
+tests:
+  # Normative tests
+  - README: "README.md exists"
+  - SCHEMATIC: "{id}.kicad_sch exists"
+  - PCB: "{id}.kicad_pcb exists"
+  - FABRICABLE: "plots/{id}_*.zip gerber exists. jlcpcb/production_files/[GERBER-{id}.zip, BOM-{id}.csv, BOM-{id}.csv] exist"
+  - QC_BASIC_DONE: "QCprofile.yaml and QCreport.yaml exist and report STATUS is set to BASIC and PASS is true"
+  - QC_FULL_DONE: "QCprofile.yaml and QCreport.yaml exist and report STATUS is set to FULL and PASS is true"
+  - DEPRECATED: "DEPRECATED flag set in description.yaml"
+

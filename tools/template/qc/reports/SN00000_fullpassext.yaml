@@ -1,0 +1,61 @@
+schema_version: 1
+
+identity:
+  sku: CH-CTRL-SHLD-CONTROLLER_ESP32XIAO
+  module_id: CONTROLLER_esp32xiao
+  hw_revision: R3
+  serial: SN00044
+
+qc:
+  STATUS: FULL
+  PASS: true
+  profile: qc/QCprofile.yaml
+  timestamp: 2026-01-04T18:25:00Z
+  operator: aightech
+
+results:
+  POWER_RAILS:
+    pass: true
+    metrics:
+      rails_measured_v: { VBAT: 4.02, 3V3: 3.29 }
+      rails_within_tol: true
+
+  CURRENT_IDLE_ACTIVE:
+    pass: true
+    metrics:
+      idle_mA: 28.1
+      active_mA: 112.5
+
+  BUS_ENUMERATION:
+    pass: true
+    metrics:
+      enumerate_ok: true
+      enumerate_time_ms: 260
+
+  BUS_LOOPBACK_STRESS:
+    pass: true
+    metrics:
+      packets_sent: 500000
+      packets_ok: 499850
+      error_rate_pct: 0.03
+      disconnects: 0
+
+  TIMING_LATENCY_JITTER:
+    pass: true
+    metrics:
+      latency_ms_p50: 2.9
+      latency_ms_p95: 4.8
+      jitter_ms_rms: 0.41
+
+  LONG_RUN_STABILITY:
+    pass: true
+    metrics:
+      duration_min: 45
+      dropouts: 0
+      thermal_rise_c: 9.3
+
+  VISUAL_INSPECTION:
+    pass: true
+    metrics:
+      pass: true
+      notes: "OK"

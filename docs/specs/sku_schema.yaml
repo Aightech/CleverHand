@@ -1,0 +1,95 @@
+# CleverHand SKU specification (source of truth)
+# This file is normative: tooling and reviews must follow it.
+
+version: 1
+
+sku:
+  prefix: "CH"
+  separator: "-"
+  casing: "UPPERCASE"
+  allowed_charset: "A-Z0-9-_"
+  structure: ["PREFIX", "CATEGORY", "FAMILY", "MODEL", "VARIANT?"]
+
+fields:
+  rules:
+    - "UPPERCASE"
+    - "NO_SPACES"
+    - "DASH_SEPARATED"
+    - "MUST_NOT_BE_EMPTY"
+    - "DASH_IS_HIERARCHY"
+    - "UNDERSCORE_IS_ATOMIC"
+    - "NO_EXTRA_LEVELS"
+  CATEGORY:
+    description: "High-level category"
+    allowed: #SKU: [folder name, extended name]
+      CTRL: [controller, Controllers]
+      HMI: [hmi, Human-Machine Interfaces]
+      TOOL: [tool, Tools]
+      CASE: [case, Cases]
+      BND: [bundle, Bundles]
+      DL: [download, Downloads]
+      SRV: [service, Services]
+
+  FAMILY:
+    description: "Functional group (broad function within CAT)"
+    allowed:
+      # CTRL
+      SHLD: [shield, Shields]
+      # HMI
+      COM: [communication, Communication]
+      SUBM: [submodule, Submodules]
+      INTF: [interface, Interfaces]
+      # TOOL
+      BRDG: [bridge, Bridges]
+      EXTN: [extension, Extensions]
+
+  MODEL:
+    description: >
+      Atomic design identifier. May include underscores to represent
+      compound names (e.g. function_IC, formfactor_variant).
+    rules:
+      - "UPPERCASE"
+      - "NO_SPACES"
+
+  VARIANT:
+    description: "Optional variant token; reserved primarily for electrical revision"
+    optional: true
+    allowed_patterns:
+      - "^R[0-9]+$"       # Electrical revision marker (R1, R2, ...)
+    disallowed_examples:
+      - "BLACK"
+      - "WHITE"
+      - "ASSEMBLED"
+      - "BATCH2026"
+      - "V2"
+
+rules:
+  # Philosophy: SKU describes the *design identity*, not logistics.
+  - id: no_logistics_in_sku
+    text: "Never encode price, year, batch, customer, packaging, assembly, or colour in a SKU."
+  - id: sku_immutable
+    text: "SKUs are immutable once published. Never reuse a SKU for a different design."
+  - id: electrical_change_requires_new_identity
+    text: "If a PCB changes electrically, it must be a new SKU or a new VARIANT of the same SKU (R#)."
+  - id: assembly_in_metadata
+    text: "Assembly options (soldered/headers), cases, and cosmetic variants belong to order metadata, not SKU."
+  - id: use_hyphen_only
+    text: "Use '-' as the only separator. Underscores and spaces are not allowed."
+  - id: uppercase_only
+    text: "All SKUs must be uppercase."
+
+examples:
+  valid:
+    - "CH-HMI-SENS-EMG-ADS1293"
+    - "CH-HMI-COM-MOD"
+    - "CH-CTRL-STANDALONE-ESP32-R2"
+    - "CH-ACC-CABLE-FPC20-10CM"
+    - "CH-CASE-HMI-S-BLK"
+    - "CH-BND-STARTER-EMG"
+    - "CH-DL-SW-PYTHON-SDK"
+    - "CH-SRV-ASSEMBLY-MODULES"
+  invalid:
+    - "ch-hmi-sens-emg-ads1293"
+    - "CH_HMI_SENS_EMG_ADS1293"
+    - "CH-HMI-SENS-EMG-ADS1293-ASSEMBLED"
+    - "CH-HMI-EMG-ADS1293-V2"

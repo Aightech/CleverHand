@@ -1,6 +1,0 @@
-{
-    "port": "/dev/ttyACM0",
-    "configuration": "usb=serial,speed=600,opt=o2std,keys=en-us",
-    "board": "teensy:avr:teensy40",
-    "sketch": "software/CleverHand-interface/src/uctrl_master/uctrl_master.ino"
-}

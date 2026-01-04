@@ -1,8 +1,0 @@
-{
-    "workbench.colorTheme": "Default Dark+",
-    "files.associations": {
-        "cstddef": "cpp",
-        "*.tcc": "cpp",
-        "thread": "cpp"
-    }
-}

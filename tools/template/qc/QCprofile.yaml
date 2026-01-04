@@ -1,0 +1,217 @@
+schema_version: 1
+
+identity:
+  sku: CH-HMI-COM-COM_MOD         # required
+  module_id: COM_MOD              # folder id / human id
+  hw_revision: R2                 # optional but recommended
+  module_type: COM                # enum: COM | BRIDGE | CTRL | SENSOR | ACTUATOR | INTERFACE | TOOL
+  family: COM                     # matches SKU family where possible
+  model: COM_MOD                  # design identifier
+  readiness_target: REFERENCE     # intended readiness after passing QC: ALPHA|REFERENCE
+
+qc:
+  status_level: FULL              # BASIC or FULL (this profile defines the FULL test suite)
+  pass_rule: "ALL_REQUIRED_PASS"  # future-proof; for now: all required tests must pass
+  report_format: YAML             # YAML or JSON
+  report_min_version: 1
+
+# ---------------------------
+# Test setup (for reproducibility)
+# ---------------------------
+setup:
+  power:
+    nominal_v: 3.7
+    source: battery              # battery | bench_supply | usb
+    rails_expected:
+      - { name: VBAT, v: 3.7, tol_pct: 10 }
+      - { name: 3V3,  v: 3.3, tol_pct: 3 }
+  fixture:
+    name: CH_QC_JIG_V1
+    notes: "Standard pogo fixture with bus loopback + load board."
+  instruments:
+    multimeter: "Any (≥4.5 digit recommended)"
+    oscilloscope: "≥100 MHz"
+    logic_analyzer: "≥10 MHz"
+    signal_generator: "Low-noise, 0.1 Hz–100 kHz"
+    load: "Programmable load or resistor bank"
+  environment:
+    temp_c_range: [18, 28]
+    emc_notes: "Prefer shielded enclosure for sensor noise tests."
+
+# ---------------------------
+# Declared required tests (portable)
+# Each test has:
+# - id: stable identifier used in reports
+# - kind: group
+# - required: true|false
+# - thresholds: pass/fail limits
+# - metrics: names emitted in report
+# ---------------------------
+tests:
+
+  # === Identity & Traceability ===
+  - id: IDENTITY
+    kind: IDENTITY
+    required: true
+    metrics:
+      - serial
+      - sku
+      - hw_revision
+      - fw_version
+      - fw_git_commit
+
+  # === Power sanity ===
+  - id: POWER_RAILS
+    kind: POWER
+    required: true
+    thresholds:
+      rails_within_tol: true
+    metrics:
+      - rails_measured_v   # map name->value in report
+      - rails_within_tol
+
+  - id: CURRENT_IDLE_ACTIVE
+    kind: POWER
+    required: true
+    thresholds:
+      idle_mA_max: 30
+      active_mA_max: 120
+    metrics:
+      - idle_mA
+      - active_mA
+
+  # === Digital link integrity (bus dependent) ===
+  - id: BUS_ENUMERATION
+    kind: DIGITAL
+    required: true
+    thresholds:
+      enumerate_ok: true
+    metrics:
+      - enumerate_ok
+      - enumerate_time_ms
+
+  - id: BUS_LOOPBACK_STRESS
+    kind: DIGITAL
+    required: true
+    thresholds:
+      error_rate_pct_max: 0.1
+      disconnects_max: 0
+    metrics:
+      - packets_sent
+      - packets_ok
+      - error_rate_pct
+      - disconnects
+
+  # === Timing ===
+  - id: TIMING_LATENCY_JITTER
+    kind: TIMING
+    required: false              # set true for COM/CTRL
+    thresholds:
+      latency_ms_max: 10
+      jitter_ms_rms_max: 1
+    metrics:
+      - latency_ms_p50
+      - latency_ms_p95
+      - jitter_ms_rms
+
+  # === Sensor analog performance (only for SENSOR modules) ===
+  - id: SENSOR_NOISE_FLOOR
+    kind: SIGNAL
+    required: false
+    thresholds:
+      noise_uVrms_max: 3.0
+    metrics:
+      - noise_uVrms
+      - bandwidth_hz_3db
+
+  - id: SENSOR_GAIN_ACCURACY
+    kind: SIGNAL
+    required: false
+    thresholds:
+      gain_error_pct_abs_max: 5
+      offset_uV_abs_max: 500
+    metrics:
+      - gain_error_pct
+      - offset_uV
+
+  - id: SENSOR_CMRR_PROXY
+    kind: SIGNAL
+    required: false
+    thresholds:
+      cmrr_db_min: 60
+    metrics:
+      - cmrr_db
+
+  - id: SENSOR_SAMPLERATE_ACCURACY
+    kind: TIMING
+    required: false
+    thresholds:
+      fs_error_pct_abs_max: 0.5
+    metrics:
+      - fs_nominal_hz
+      - fs_measured_hz
+      - fs_error_pct
+
+  # === Actuator performance (only for ACTUATOR modules) ===
+  - id: ACTUATOR_OUTPUT_RANGE
+    kind: ACTUATION
+    required: false
+    thresholds:
+      vpp_min: 1.0
+      vpp_max: 12.0
+      current_limit_mA_max: 300
+    metrics:
+      - vpp
+      - current_peak_mA
+      - current_limit_triggered
+
+  - id: ACTUATOR_WAVEFORM_FIDELITY
+    kind: ACTUATION
+    required: false
+    thresholds:
+      thd_pct_max: 10
+      rise_time_ms_max: 5
+    metrics:
+      - thd_pct
+      - rise_time_ms
+
+  # === Thermal & long-run stability ===
+  - id: LONG_RUN_STABILITY
+    kind: STABILITY
+    required: false              # set true for REFERENCE sold modules
+    thresholds:
+      duration_min: 30
+      dropouts_max: 0
+      thermal_rise_c_max: 15
+    metrics:
+      - duration_min
+      - dropouts
+      - thermal_rise_c
+
+  # === Mechanical / assembly checks (optional but useful) ===
+  - id: VISUAL_INSPECTION
+    kind: ASSEMBLY
+    required: true
+    thresholds:
+      pass: true
+    metrics:
+      - pass
+      - notes
+
+# ---------------------------
+# Profile presets by module type
+# (Your generator can set required:true automatically based on module_type)
+# ---------------------------
+presets:
+  COM:
+    required_tests: [IDENTITY, POWER_RAILS, CURRENT_IDLE_ACTIVE, BUS_ENUMERATION, BUS_LOOPBACK_STRESS, TIMING_LATENCY_JITTER, VISUAL_INSPECTION]
+  BRIDGE:
+    required_tests: [IDENTITY, POWER_RAILS, CURRENT_IDLE_ACTIVE, BUS_ENUMERATION, BUS_LOOPBACK_STRESS, VISUAL_INSPECTION]
+  CTRL:
+    required_tests: [IDENTITY, POWER_RAILS, CURRENT_IDLE_ACTIVE, BUS_ENUMERATION, BUS_LOOPBACK_STRESS, TIMING_LATENCY_JITTER, LONG_RUN_STABILITY, VISUAL_INSPECTION]
+  SENSOR:
+    required_tests: [IDENTITY, POWER_RAILS, CURRENT_IDLE_ACTIVE, BUS_ENUMERATION, BUS_LOOPBACK_STRESS, SENSOR_NOISE_FLOOR, SENSOR_GAIN_ACCURACY, SENSOR_SAMPLERATE_ACCURACY, LONG_RUN_STABILITY, VISUAL_INSPECTION]
+  ACTUATOR:
+    required_tests: [IDENTITY, POWER_RAILS, CURRENT_IDLE_ACTIVE, BUS_ENUMERATION, BUS_LOOPBACK_STRESS, ACTUATOR_OUTPUT_RANGE, ACTUATOR_WAVEFORM_FIDELITY, LONG_RUN_STABILITY, VISUAL_INSPECTION]
+  INTERFACE:
+    required_tests: [IDENTITY, VISUAL_INSPECTION]

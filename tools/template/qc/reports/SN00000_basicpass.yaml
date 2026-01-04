@@ -1,0 +1,71 @@
+schema_version: 1
+
+identity:
+  sku: CH-HMI-COM-COM_MOD
+  module_id: COM_MOD
+  hw_revision: R2
+  serial: SN00021
+
+qc:
+  STATUS: FULL
+  PASS: true
+  profile: qc/QCprofile.yaml
+  timestamp: 2026-01-04T15:40:00Z
+  operator: aightech
+  notes: "Bench test with loopback jig v1"
+
+firmware:
+  version: v1.4.0
+  git_commit: 3b1e8af
+
+results:
+
+  IDENTITY:
+    pass: true
+    metrics:
+      serial: SN00021
+      sku: CH-HMI-COM-COM_MOD
+      hw_revision: R2
+      fw_version: v1.4.0
+      fw_git_commit: 3b1e8af
+
+  POWER_RAILS:
+    pass: true
+    metrics:
+      rails_measured_v:
+        VBAT: 3.92
+        3V3: 3.30
+      rails_within_tol: true
+
+  CURRENT_IDLE_ACTIVE:
+    pass: true
+    metrics:
+      idle_mA: 18.4
+      active_mA: 64.2
+
+  BUS_ENUMERATION:
+    pass: true
+    metrics:
+      enumerate_ok: true
+      enumerate_time_ms: 220
+
+  BUS_LOOPBACK_STRESS:
+    pass: true
+    metrics:
+      packets_sent: 200000
+      packets_ok: 199980
+      error_rate_pct: 0.01
+      disconnects: 0
+
+  TIMING_LATENCY_JITTER:
+    pass: true
+    metrics:
+      latency_ms_p50: 2.1
+      latency_ms_p95: 3.4
+      jitter_ms_rms: 0.28
+
+  VISUAL_INSPECTION:
+    pass: true
+    metrics:
+      pass: true
+      notes: "No solder bridges; connectors aligned; silkscreen readable."
