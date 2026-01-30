@@ -179,10 +179,3 @@ Contributions are welcome in the form of:
 
 If you plan to use CleverHand in a study or project, citations and references are appreciated.
 
----
-
-If you want next, I can:
-
-* add a **“Who should / should not use CleverHand”** section,
-* split this into a **short README + extended docs index**,
-* or rewrite it again with a **stronger academic / grant-proposal tone**.
